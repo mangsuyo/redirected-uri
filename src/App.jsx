@@ -10,6 +10,7 @@ export default function App() {
       try {
         const queryParams = new URLSearchParams(location.search);
         const codeParams = queryParams.toString();
+        console.log(codeParams);
         if (window.ReactNativeWebView) {
           window.ReactNativeWebView.postMessage(JSON.stringify(codeParams));
         }
