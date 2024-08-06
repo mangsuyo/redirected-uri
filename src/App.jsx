@@ -6,39 +6,29 @@ export default function App() {
   const location = useLocation();
 
   useEffect(() => {
-    const fetchUserData = async () => {
+    const redirectToApp = async () => {
       try {
         const queryParams = new URLSearchParams(location.search);
-        const codeParams = queryParams.toString();
-        console.log(codeParams);
+        const code = queryParams.get("code");
 
-        if (window.ReactNativeWebView) {
-          window.ReactNativeWebView.postMessage(
-            JSON.stringify({ data: codeParams })
-          );
+        if (code) {
+          const appDeepLink = `hikikomori://oauth?code=${code}`;
+          window.location.href = appDeepLink;
+        } else {
+          throw new Error("Authorization code not found.");
         }
       } catch (error) {
-        console.error("Error fetching user data:", error);
-
-        if (window.ReactNativeWebView) {
-          window.ReactNativeWebView.postMessage(
-            JSON.stringify({
-              error: "Error fetching user data: " + error.message,
-            })
-          );
-        }
+        console.error("Error during redirection:", error);
       }
     };
 
-    fetchUserData();
+    redirectToApp();
   }, [location.search]);
 
   return (
-    <>
-      <div>
-        <div>사용 중이던 서비스로 이동하여</div>
-        <div>로그인을 완료해 주세요.</div>
-      </div>
-    </>
+    <div>
+      <div>사용 중이던 서비스로 이동하여</div>
+      <div>로그인을 완료해 주세요.</div>
+    </div>
   );
 }
