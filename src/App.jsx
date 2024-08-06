@@ -6,19 +6,16 @@ export default function App() {
   const location = useLocation();
 
   useEffect(() => {
-    const redirectToApp = async () => {
-      try {
-        const queryParams = new URLSearchParams(location.search);
-        const code = queryParams.get("code");
-
-        if (code) {
-          const appDeepLink = `hikikomori://oauth?code=${code}`;
+    const redirectToApp = () => {
+      const queryParams = new URLSearchParams(location.search);
+      const code = queryParams.get("code");
+      if (code) {
+        const appDeepLink = `hikikomori://oauth?code=${code}`;
+        setTimeout(() => {
           window.location.href = appDeepLink;
-        } else {
-          throw new Error("Authorization code not found.");
-        }
-      } catch (error) {
-        console.error("Error during redirection:", error);
+        }, 1000);
+      } else {
+        console.error("Authorization code not found.");
       }
     };
 
