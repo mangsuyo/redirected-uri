@@ -10,7 +10,7 @@ export default function App() {
       const queryParams = new URLSearchParams(location.search);
       const code = queryParams.get("code");
       if (code) {
-        window.location.href = `exp://127.0.0.1:8081?code=${code}`;
+        window.location.href = `exp://27grsa0-anonymous-8081.exp.direct?code=${code}`;
       }
     };
 
