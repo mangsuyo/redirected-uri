@@ -10,12 +10,7 @@ export default function App() {
       const queryParams = new URLSearchParams(location.search);
       const code = queryParams.get("code");
       if (code) {
-        const appDeepLink = `hikikomori://oauth?code=${code}`;
-        setTimeout(() => {
-          window.location.href = appDeepLink;
-        }, 1000);
-      } else {
-        console.error("Authorization code not found.");
+        window.location.href = `exp://172.20.10.4:8081?code=${code}`;
       }
     };
 
